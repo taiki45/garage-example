@@ -22,6 +22,15 @@ RSpec.describe 'posts', type: :request do
       post '/v1/posts', params, env
       expect(response).to have_http_status(201)
     end
+
+    context 'with invalid parameters' do
+      before { params.delete(:title) }
+
+      it 'returns 400' do
+        post '/v1/posts', params, env
+        expect(response).to have_http_status(400)
+      end
+    end
   end
 
   describe 'GET /v1/posts/:post_id' do

@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'garage', github: 'cookpad/garage'
+gem 'weak_parameters', '~> 0.1.5'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'

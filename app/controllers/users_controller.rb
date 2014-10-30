@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  validates :update do
+    string :name, required: true
+  end
+
   include Garage::RestfulActions
 
   def require_resources

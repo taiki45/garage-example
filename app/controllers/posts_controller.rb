@@ -1,4 +1,15 @@
 class PostsController < ApplicationController
+  validates :create do
+    string :title, required: true
+    string :body
+  end
+
+  validates :update do
+    string :title
+    string :body
+    string :published_at
+  end
+
   include Garage::RestfulActions
 
   def require_resources

@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def current_resource_owner
     @current_resource_owner ||= User.find(resource_owner_id) if resource_owner_id
   end
+
+  rescue_from WeakParameters::ValidationError do
+    head 400
+  end
 end

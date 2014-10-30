@@ -22,11 +22,10 @@ RSpec.describe 'users', type: :request do
   end
 
   describe 'PUT /v1/users/:user_id' do
+    let!(:user) { resource_owner }
     before { params[:name] = 'bob' }
 
     context 'with owned resource' do
-      let!(:user) { resource_owner }
-
       it 'updates user resource' do
         put "/v1/users/#{user.id}", params, env
         expect(response).to have_http_status(204)
