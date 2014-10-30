@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+  validates :index do
+    integer :page
+    integer :per_page
+  end
+
   validates :create do
     string :title, required: true
     string :body
@@ -38,5 +43,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.permit(:title, :body, :published_at)
+  end
+
+  def respond_with_resources_options
+    { paginate: true }
   end
 end

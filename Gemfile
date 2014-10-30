@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'garage', github: 'cookpad/garage'
+gem 'kaminari'
 gem 'weak_parameters', '~> 0.1.5'
 
 group :development, :test do

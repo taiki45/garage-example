@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  validates :index do
+    integer :page
+    integer :per_page
+  end
+
   validates :update do
     string :name, required: true
   end
@@ -19,5 +24,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name)
+  end
+
+  def respond_with_resources_options
+    { paginate: true }
   end
 end

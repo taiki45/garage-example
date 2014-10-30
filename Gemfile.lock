@@ -84,6 +84,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -193,6 +196,7 @@ DEPENDENCIES
   garage!
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   pry-rails (~> 0.3.2)
   rails (= 4.1.6)
   rspec-rails (~> 3.1.0)
