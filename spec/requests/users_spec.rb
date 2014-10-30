@@ -14,7 +14,7 @@ RSpec.describe 'users', type: :request do
   describe 'GET /v1/users' do
     let!(:users) { create_list(:user, 3) }
 
-    it 'returns user resources' do
+    it 'returns user resources', autodoc: true do
       get '/v1/users', params, env
       expect(response).to have_http_status(200)
       expect(JSON(response.body)).to all(match(user_structure))
@@ -24,7 +24,7 @@ RSpec.describe 'users', type: :request do
   describe 'GET /v1/users/:user_id' do
     let!(:user) { create(:user, name: 'alice') }
 
-    it 'returns user resource' do
+    it 'returns user resource', autodoc: true do
       get "/v1/users/#{user.id}", params, env
       expect(response).to have_http_status(200)
       expect(JSON(response.body)).to match(user_structure)
@@ -35,7 +35,7 @@ RSpec.describe 'users', type: :request do
     let!(:user) { resource_owner }
     before { params[:name] = 'bob' }
 
-    context 'with owned resource' do
+    context 'with owned resource', autodoc: true do
       it 'updates user resource' do
         put "/v1/users/#{user.id}", params, env
         expect(response).to have_http_status(204)

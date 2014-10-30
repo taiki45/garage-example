@@ -15,7 +15,7 @@ RSpec.describe 'posts', type: :request do
   describe 'GET /v1/posts' do
     let!(:posts) { create_list(:post, 3) }
 
-    it 'returns post resources' do
+    it 'returns post resources', autodoc: true do
       get '/v1/posts', params, env
       expect(response).to have_http_status(200)
       expect(JSON(response.body)).to all(match(post_structure))
@@ -26,10 +26,11 @@ RSpec.describe 'posts', type: :request do
     before do
       params[:title] = 'abc'
       params[:body] = 'body for post'
+      env['Content-Type'] = 'application/json'
     end
 
-    it 'creates post resource' do
-      post '/v1/posts', params, env
+    it 'creates post resource', autodoc: true do
+      post '/v1/posts', params.to_json, env
       expect(response).to have_http_status(201)
       expect(JSON(response.body)).to match(post_structure)
     end
@@ -38,7 +39,7 @@ RSpec.describe 'posts', type: :request do
       before { params.delete(:title) }
 
       it 'returns 400' do
-        post '/v1/posts', params, env
+        post '/v1/posts', params.to_json, env
         expect(response).to have_http_status(400)
       end
     end
@@ -48,7 +49,7 @@ RSpec.describe 'posts', type: :request do
     context 'with owned published post' do
       let!(:post) { create(:post, user: resource_owner) }
 
-      it 'returns post resource' do
+      it 'returns post resource', autodoc: true do
         get "/v1/posts/#{post.id}", params, env
         expect(response).to have_http_status(200)
         expect(JSON(response.body)).to match(post_structure)
@@ -91,10 +92,11 @@ RSpec.describe 'posts', type: :request do
     before do
       params[:title] = 'abc'
       params[:body] = 'body for post'
+      env['Content-Type'] = 'application/json'
     end
 
-    it 'updates post resource' do
-      put "/v1/posts/#{post.id}", params, env
+    it 'updates post resource', autodoc: true do
+      put "/v1/posts/#{post.id}", params.to_json, env
       expect(response).to have_http_status(204)
     end
   end
@@ -102,7 +104,7 @@ RSpec.describe 'posts', type: :request do
   describe 'DELETE /v1/posts/:post_id' do
     let!(:post) { create(:post, user: resource_owner) }
 
-    it 'deletes post resource' do
+    it 'deletes post resource', autodoc: true do
       delete "/v1/posts/#{post.id}", params, env
       expect(response).to have_http_status(204)
     end
