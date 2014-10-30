@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
 
   def build_permissions(perms, other)
     perms.permits! :read
-    perms.permits! :write
+    perms.permits! :write if self == other
   end
 end

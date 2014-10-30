@@ -22,13 +22,24 @@ RSpec.describe 'users', type: :request do
   end
 
   describe 'PUT /v1/users/:user_id' do
-    let!(:user) { create(:user, name: 'alice') }
-
     before { params[:name] = 'bob' }
 
-    it 'updates user resource' do
-      put "/v1/users/#{user.id}", params, env
-      expect(response).to have_http_status(204)
+    context 'with owned resource' do
+      let!(:user) { resource_owner }
+
+      it 'updates user resource' do
+        put "/v1/users/#{user.id}", params, env
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'without owned resource' do
+      let!(:other) { create(:user, name: 'raymonde') }
+
+      it 'returns 403' do
+        put "/v1/users/#{other.id}", params, env
+        expect(response).to have_http_status(403)
+      end
     end
   end
 end
