@@ -3,12 +3,21 @@ require 'rails_helper'
 RSpec.describe 'users', type: :request do
   include RequestHelper
 
+  let(:user_structure) do
+    {
+      'id' => a_kind_of(Integer),
+      'name' => a_kind_of(String),
+      'email' => a_kind_of(String)
+    }
+  end
+
   describe 'GET /v1/users' do
     let!(:users) { create_list(:user, 3) }
 
     it 'returns user resources' do
       get '/v1/users', params, env
       expect(response).to have_http_status(200)
+      expect(JSON(response.body)).to all(match(user_structure))
     end
   end
 
@@ -18,6 +27,7 @@ RSpec.describe 'users', type: :request do
     it 'returns user resource' do
       get "/v1/users/#{user.id}", params, env
       expect(response).to have_http_status(200)
+      expect(JSON(response.body)).to match(user_structure)
     end
   end
 
