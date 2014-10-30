@@ -13,7 +13,11 @@ class PostsController < ApplicationController
   include Garage::RestfulActions
 
   def require_resources
-    @resources = Post.all
+    if params[:user_id]
+      @resources = User.find(params[:user_id]).posts
+    else
+      @resources = Post.all
+    end
   end
 
   def create_resource

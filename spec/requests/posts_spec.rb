@@ -109,4 +109,16 @@ RSpec.describe 'posts', type: :request do
       expect(response).to have_http_status(204)
     end
   end
+
+  describe 'GET /v1/users/:user_id/posts' do
+    let!(:post) { create(:post, user: other) }
+    let!(:another_post) { create(:post, user: create(:user)) }
+    let(:other) { create(:user) }
+
+    it 'returns post resources of the user' do
+      get "/v1/users/#{other.id}/posts", params, env
+      expect(response).to have_http_status(200)
+      expect(JSON(response.body).size).to eq(1)
+    end
+  end
 end

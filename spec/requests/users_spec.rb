@@ -7,7 +7,12 @@ RSpec.describe 'users', type: :request do
     {
       'id' => a_kind_of(Integer),
       'name' => a_kind_of(String),
-      'email' => a_kind_of(String)
+      'email' => a_kind_of(String),
+      '_links' => {
+        'posts' => {
+          'href' => a_string_matching(%r(/v1/users/\d+/posts))
+        }
+      }
     }
   end
 

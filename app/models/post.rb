@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   property :title
   property :body
   property :published_at
+  property :user, selectable: true
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
