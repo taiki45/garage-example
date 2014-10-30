@@ -33,6 +33,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'pry-rails', '~> 0.3.2'
   gem 'rspec-rails', '~> 3.1.0'
+  gem 'autodoc', '~> 0.4.0'
 end
 
 # Use ActiveModel has_secure_password
