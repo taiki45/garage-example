@@ -1,5 +1,10 @@
 Garage.configure {}
-Garage::TokenScope.configure {}
+Garage::TokenScope.configure do
+  register :public, desc: 'acessing publicly available data' do
+    access :read, User
+    access :write, User
+  end
+end
 
 Doorkeeper.configure do
   orm :active_record
