@@ -25,11 +25,42 @@ RSpec.describe 'posts', type: :request do
   end
 
   describe 'GET /v1/posts/:post_id' do
-    let!(:post) { create(:post, user: resource_owner) }
+    context 'with owned published post' do
+      let!(:post) { create(:post, user: resource_owner) }
 
-    it 'returns post resource' do
-      get "/v1/posts/#{post.id}", params, env
-      expect(response).to have_http_status(200)
+      it 'returns post resource' do
+        get "/v1/posts/#{post.id}", params, env
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'with not owned published post' do
+      let!(:post) { create(:post, user: other) }
+      let(:other) { create(:user) }
+
+      it 'returns post resource' do
+        get "/v1/posts/#{post.id}", params, env
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'with owned draft post' do
+      let!(:post) { create(:post, user: resource_owner, published_at: nil) }
+
+      it 'returns draft post resource' do
+        get "/v1/posts/#{post.id}", params, env
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'with not owned draft post' do
+      let!(:post) { create(:post, user: other, published_at: nil) }
+      let(:other) { create(:user) }
+
+      it 'returns 403' do
+        get "/v1/posts/#{post.id}", params, env
+        expect(response).to have_http_status(403)
+      end
     end
   end
 

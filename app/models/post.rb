@@ -15,7 +15,12 @@ class Post < ActiveRecord::Base
   end
 
   def build_permissions(perms, other)
-    perms.permits! :read
+    if published_at?
+      perms.permits! :read
+    elsif user == other
+      perms.permits! :read
+    end
+
     perms.permits! :write
   end
 end
