@@ -1,18 +1,18 @@
 class PostsController < ApplicationController
   validates :index do
-    integer :page
-    integer :per_page
+    integer :page, description: 'Parameter for pagination'
+    integer :per_page, description: 'Parameter for pagination'
   end
 
   validates :create do
-    string :title, required: true
-    string :body
+    string :title, required: true, description: 'You can not specify title as emtpry string.'
+    string :body, description: "Blog contents. Emtpry string is allowed."
   end
 
   validates :update do
-    string :title
-    string :body
-    string :published_at
+    string :title, description: 'You can not specify title as emtpry string.'
+    string :body, description: "Blog contents. Emtpry string is allowed."
+    string :published_at, description: 'If you specify this parameter, we publish the blog with current time. The parameter value is ignored. '
   end
 
   include Garage::RestfulActions

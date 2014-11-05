@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   validates :index do
-    integer :page
-    integer :per_page
+    integer :page, description: 'Parameter for pagination.'
+    integer :per_page, description: 'Parameter for pagination.'
   end
 
   validates :update do
-    string :name, required: true
+    string :name, required: true, description: "Arbitrary name for user. It's not restricted to be unique."
   end
 
   include Garage::RestfulActions
