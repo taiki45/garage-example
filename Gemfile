@@ -35,7 +35,7 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.2'
   gem 'rspec-rails', '~> 3.1.0'
   gem 'autodoc', '~> 0.4.0'
-  gem 'debug_exceptions_json', '~> 0.2.3'
+  gem 'debug_exceptions_json', '~> 0.2.4'
 end
 
 # Use ActiveModel has_secure_password
