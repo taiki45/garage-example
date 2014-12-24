@@ -10,7 +10,9 @@ class PostsController < ApplicationController
   end
 
   validates :update do
-    string :title, description: 'You can not specify title as emtpry string.'
+    string :title, description: 'You can not specify title as emtpry string.' do |value|
+      value.present?
+    end
     string :body, description: "Blog contents. Emtpry string is allowed."
     string :published_at, description: 'If you specify this parameter, we publish the blog with current time. The parameter value is ignored. '
   end
