@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   end
 
   def create_resource
-    @resources.create(post_params)
+    @resources.create(post_params.merge(user_id: resource_owner_id))
   end
 
   def require_resource
