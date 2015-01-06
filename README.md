@@ -17,4 +17,7 @@ bundle exec rails s
 open http://localhost:3000/oauth/applications # Then create test application
 curl -u "$APPLICTION_ID:$APPLICATION_SECRET" -XPOST http://localhost:3000/oauth/token -d 'grant_type=password&username=alice@example.com' # Then you got access token
 curl -XGET -H "Authorization: Bearer $ACCESS_TOKEN" http://localhost:3000/v1/users
+
+# Generate API documentation.
+AUTODOC=1 bundle exec rspec
 ```
